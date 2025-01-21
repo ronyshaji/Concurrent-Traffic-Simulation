@@ -93,8 +93,9 @@ void TrafficLight::cycleThroughPhases()
 
 
             auto msg = _currentPhase;
-            auto isSend = std::async(std::launch::async, &MessageQueue<TrafficLightPhase>::send, msg_queue, std::move(msg));
-            isSend.wait();
+            msg_queue->send(std::move(_currentPhase));
+            //auto isSend = std::async(std::launch::async, &MessageQueue<TrafficLightPhase>::send, msg_queue, std::move(msg));
+            //isSend.wait();
 
             _preTime = _currTime;
 
@@ -103,8 +104,6 @@ void TrafficLight::cycleThroughPhases()
         {
             continue;
         }
-
-
     
     }
 }
